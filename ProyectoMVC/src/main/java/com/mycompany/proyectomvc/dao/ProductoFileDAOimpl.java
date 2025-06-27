@@ -24,7 +24,7 @@ public class ProductoFileDAOimpl implements ProductoDAO {
      public ProductoFileDAOimpl() {
         productos = new ArrayList<>();
         idCounter = new AtomicInteger(0);
-        loadProductsFromFile(); // Esta línea es crucial y es donde se usa el método
+        loadProductsFromFile(); 
     }
     
      private void loadProductsFromFile() {
@@ -38,7 +38,7 @@ public class ProductoFileDAOimpl implements ProductoDAO {
             String line;
             int maxId = 0;
             while ((line = reader.readLine()) != null) {
-                Producto producto = Producto.fromCsvString(line); // Usa el método de Producto
+                Producto producto = Producto.fromCsvString(line); 
                 if (producto != null) {
                     productos.add(producto);
                     if (producto.getId() > maxId) {
@@ -57,7 +57,7 @@ public class ProductoFileDAOimpl implements ProductoDAO {
     private void saveProductsToFile() {
          try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Producto producto : productos) {
-                writer.write(producto.toCsvString()); // Usa el método de Producto
+                writer.write(producto.toCsvString()); 
                 writer.newLine();
             }
             System.out.println("Productos guardados en " + filePath);
