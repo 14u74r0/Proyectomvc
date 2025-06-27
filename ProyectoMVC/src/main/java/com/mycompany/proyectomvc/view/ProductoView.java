@@ -1,6 +1,8 @@
 package com.mycompany.proyectomvc.view;
 
 import com.mycompany.proyectomvc.model.Producto;
+import com.mycompany.proyectomvc.dao.ProductoFileDAOimpl;
+
 import java.util.List;
 
 public class ProductoView {

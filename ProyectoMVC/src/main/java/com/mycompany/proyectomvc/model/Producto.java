@@ -7,10 +7,18 @@ package com.mycompany.proyectomvc.model;
      private String descripcion;
      private double precio;
     
-     
-     public Producto(int id, String nombre, String descripcion, double precio) {
+     public Producto() {
          
      }
+     
+     public Producto(int id, String nombre, String descripcion, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+     }
+     
+     
 
     public int getId() {
         return id;
@@ -53,4 +61,27 @@ package com.mycompany.proyectomvc.model;
                 ", precio=" + precio +
                 '}';
     }
-}
+    public String toCsvString() {
+        return String.valueOf(id) + "," +
+               (nombre != null ? nombre : "") + "," +
+               (descripcion != null ? descripcion : "") + "," +
+               String.valueOf(precio);
+    }
+  
+    public static Producto fromCsvString(String csvLine) {
+        String[] parts = csvLine.split(",");
+        if (parts.length == 4) {
+            try {
+                int id = Integer.parseInt(parts[0].trim());
+                String nombre = parts[1].trim();
+                String descripcion = parts[2].trim();
+                double precio = Double.parseDouble(parts[3].trim());
+                return new Producto(id, nombre, descripcion, precio);
+            } catch (NumberFormatException e) {
+                System.err.println("Error al parsear línea CSV a Producto: " + csvLine + " - " + e.getMessage());
+                return null;
+            }
+        }
+        return null;
+    }
+ }
